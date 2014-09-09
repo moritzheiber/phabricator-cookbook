@@ -1,0 +1,9 @@
+description "Phabricator PHP webserver"
+
+start on runlevel [2345]
+stop on runlevel [016]
+
+setuid <%= node['phabricator']['deploy_user'] %>
+setgid <%= node['phabricator']['deploy_group'] %>
+
+exec /usr/bin/php -S <%= node['phabricator']['domain'] %>:<%= node['phabricator']['inner_port'] %> -t <%= node['phabricator']['app_root'] %>/webroot <%= node['phabricator']['app_root'] %>/webroot/index.php
